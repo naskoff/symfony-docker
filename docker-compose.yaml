@@ -1,0 +1,22 @@
+services:
+  php:
+    build:
+      context: .
+      dockerfile: .docker/php/Dockerfile
+    restart: unless-stopped
+    volumes:
+      - ./:/srv/app
+  nginx:
+    build:
+      context: .
+      dockerfile: .docker/nginx/Dockerfile
+    environment:
+      SERVER_NAME: ${SERVER_NAME}
+    volumes:
+      - ./.docker/nginx/templates:/etc/nginx/templates
+      - ./:/srv/app
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    depends_on:
+      - php
