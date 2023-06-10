@@ -1,11 +1,13 @@
+version: '3.9'
+
 services:
   php:
     build:
       context: .
       dockerfile: .docker/php/Dockerfile
-    restart: unless-stopped
     volumes:
       - ./:/srv/app
+    tty: true
   nginx:
     build:
       context: .
@@ -17,6 +19,5 @@ services:
       - ./:/srv/app
     ports:
       - "80:80"
-    restart: unless-stopped
     depends_on:
       - php
