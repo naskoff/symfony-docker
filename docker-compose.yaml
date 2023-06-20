@@ -5,8 +5,8 @@ services:
     build:
       context: .
       dockerfile: .docker/php/Dockerfile
-    volumes:
-      - ./:/srv/app
+    environment:
+      APP_ENV: ${APP_ENV:-dev}
     tty: true
   nginx:
     build:
